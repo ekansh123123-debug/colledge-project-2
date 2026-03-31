@@ -19,6 +19,8 @@ export const metadata: Metadata = {
   description: "Unified dashboard for tracking sustainability metrics",
 };
 
+import { RootLayoutInner } from "@/components/root-layout-inner";
+
 export default function RootLayout({
   children,
 }: Readonly<{

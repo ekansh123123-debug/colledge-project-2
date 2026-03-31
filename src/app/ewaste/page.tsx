@@ -1,47 +1,46 @@
 "use client";
 
 import {
-  Line,
-  LineChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
-  Area,
-  AreaChart,
+  PieChart,
+  Pie,
+  Cell
 } from "recharts";
-import { Droplets, ArrowDownRight, AlertTriangle, ShieldCheck } from "lucide-react";
+import { MonitorSmartphone, BatteryCharging, ArrowUpRight, Cpu } from "lucide-react";
 
 // Mock data
-const dailyWaterUsage = [
-  { time: "00:00", usage: 120 },
-  { time: "04:00", usage: 90 },
-  { time: "08:00", usage: 450 },
-  { time: "12:00", usage: 600 },
-  { time: "16:00", usage: 520 },
-  { time: "20:00", usage: 300 },
-  { time: "23:59", usage: 150 },
+const ewasteCategories = [
+  { name: "Laptops/PCs", value: 120, color: "#3b82f6" },
+  { name: "Smartphones", value: 250, color: "#8b5cf6" },
+  { name: "Batteries", value: 400, color: "#f59e0b" },
+  { name: "Cables/Misc", value: 150, color: "#10b981" },
 ];
 
-const buildingWaterUsage = [
-  { name: "Science Bldg", usage: 4200, lastWeek: 4500 },
-  { name: "Dorm A", usage: 3800, lastWeek: 3700 },
-  { name: "Library", usage: 1500, lastWeek: 1600 },
-  { name: "Gym", usage: 2800, lastWeek: 2900 },
-  { name: "Dining Hall", usage: 5100, lastWeek: 5300 },
+const collectionTrends = [
+  { month: "Jan", Collected: 45, Refurbished: 20 },
+  { month: "Feb", Collected: 55, Refurbished: 25 },
+  { month: "Mar", Collected: 40, Refurbished: 15 },
+  { month: "Apr", Collected: 80, Refurbished: 45 }, // E-waste drive month
+  { month: "May", Collected: 65, Refurbished: 30 },
+  { month: "Jun", Collected: 50, Refurbished: 25 },
 ];
 
-export default function WaterConservation() {
+export default function EWasteManagement() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-          Water Conservation Tracker
+          E-Waste Platform
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400">
-          Monitor daily water usage across campus, track conservation goals, and detect potential leaks.
+          Track electronic waste collection, battery recycling, and device refurbishment.
         </p>
       </div>
 
@@ -49,93 +48,86 @@ export default function WaterConservation() {
         {/* Stat Cards */}
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
-              <Droplets className="h-6 w-6" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
+              <MonitorSmartphone className="h-6 w-6" />
             </div>
             <div>
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Total Daily Usage
+                Total Devices Collected (YTD)
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                17,400 L
+                920
               </h3>
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <ArrowDownRight className="mr-1 h-4 w-4 text-emerald-500" />
-            <span className="font-medium text-emerald-500">-4.2%</span>
-            <span className="ml-2 text-zinc-500 dark:text-zinc-400">vs yesterday</span>
+            <ArrowUpRight className="mr-1 h-4 w-4 text-emerald-500" />
+            <span className="font-medium text-emerald-500">+15%</span>
+            <span className="ml-2 text-zinc-500 dark:text-zinc-400">vs last year</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
-              <ShieldCheck className="h-6 w-6" />
+              <Cpu className="h-6 w-6" />
             </div>
             <div>
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Conservation Goal
+                Refurbished & Donated
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                92%
+                160
               </h3>
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="font-medium text-zinc-500 dark:text-zinc-400">Target: Under 18,000 L / day</span>
+            <span className="font-medium text-emerald-500">17.3% Refurbishment Rate</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
-              <AlertTriangle className="h-6 w-6" />
+              <BatteryCharging className="h-6 w-6" />
             </div>
             <div>
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Active Leak Alerts
+                Battery Bins Fullness
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                1
+                85%
               </h3>
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="font-medium text-amber-500">Dorm A - 2nd Floor Restroom</span>
+            <span className="font-medium text-amber-500">Pickup scheduled for Friday</span>
           </div>
         </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Chart 1: Daily Area Chart */}
+        {/* Chart 1: Categories Pie */}
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-            Real-Time Water Usage (L/hr)
+            E-Waste by Category (Items)
           </h3>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <AreaChart data={dailyWaterUsage}>
-                <defs>
-                  <linearGradient id="colorUsage" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="5%" stopColor="#3b82f6" stopOpacity={0.8}/>
-                    <stop offset="95%" stopColor="#3b82f6" stopOpacity={0}/>
-                  </linearGradient>
-                </defs>
-                <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.2} vertical={false} />
-                <XAxis
-                  dataKey="time"
-                  stroke="#71717a"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <YAxis
-                  stroke="#71717a"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                />
+              <PieChart>
+                <Pie
+                  data={ewasteCategories}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={0}
+                  outerRadius={100}
+                  paddingAngle={2}
+                  dataKey="value"
+                >
+                  {ewasteCategories.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
                 <Tooltip
                   contentStyle={{
                     backgroundColor: "rgba(24, 24, 27, 0.9)",
@@ -143,24 +135,25 @@ export default function WaterConservation() {
                     borderRadius: "8px",
                     color: "#f4f4f5",
                   }}
+                  itemStyle={{ color: "#f4f4f5" }}
                 />
-                <Area type="monotone" dataKey="usage" stroke="#3b82f6" fillOpacity={1} fill="url(#colorUsage)" />
-              </AreaChart>
+                <Legend />
+              </PieChart>
             </ResponsiveContainer>
           </div>
         </div>
 
-        {/* Chart 2: Building Usage Comparison */}
+        {/* Chart 2: Collection Trends */}
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-            Usage by Building (Weekly Average)
+            Collection vs Refurbishment (Monthly)
           </h3>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={buildingWaterUsage}>
+              <BarChart data={collectionTrends}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.2} vertical={false} />
                 <XAxis
-                  dataKey="name"
+                  dataKey="month"
                   stroke="#71717a"
                   fontSize={12}
                   tickLine={false}
@@ -171,7 +164,6 @@ export default function WaterConservation() {
                   fontSize={12}
                   tickLine={false}
                   axisLine={false}
-                  tickFormatter={(value) => `${value / 1000}kL`}
                 />
                 <Tooltip
                   contentStyle={{
@@ -180,11 +172,12 @@ export default function WaterConservation() {
                     borderRadius: "8px",
                     color: "#f4f4f5",
                   }}
+                  cursor={{fill: 'rgba(255,255,255,0.05)'}}
                 />
                 <Legend />
-                <Line type="monotone" dataKey="usage" name="This Week" stroke="#3b82f6" strokeWidth={2} activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="lastWeek" name="Last Week" stroke="#71717a" strokeWidth={2} strokeDasharray="5 5" />
-              </LineChart>
+                <Bar dataKey="Collected" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Refurbished" fill="#10b981" radius={[4, 4, 0, 0]} />
+              </BarChart>
             </ResponsiveContainer>
           </div>
         </div>

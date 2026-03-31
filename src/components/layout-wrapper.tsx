@@ -33,9 +33,18 @@ const navigation = [
   { name: "Eco-Transport", href: "/transport", icon: CarFront },
 ];
 
+import { useAuth } from "./auth-provider";
+import { AlertCircle, LogOut } from "lucide-react";
+
 export function LayoutWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const { role, logout } = useAuth();
+
+  const fullNavigation = [
+    ...navigation,
+    { name: "Issue Tracker", href: "/issues", icon: AlertCircle }
+  ];
 
   return (
     <div className="flex h-screen overflow-hidden bg-zinc-50 dark:bg-zinc-950">
@@ -71,7 +80,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           </div>
           <div className="mt-5 h-0 flex-1 overflow-y-auto">
             <nav className="space-y-1 px-2">
-              {navigation.map((item) => {
+              {fullNavigation.map((item) => {
                 const isActive = pathname === item.href;
                 return (
                   <Link
@@ -114,7 +123,7 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
           </div>
           <div className="mt-8 flex flex-1 flex-col justify-between">
             <nav className="flex-1 space-y-1 px-2">
-              {navigation.map((item) => {
+              {fullNavigation.map((item) => {
                 const isActive = pathname === item.href;
                 return (
                   <Link
@@ -164,9 +173,29 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
             </h1>
           </div>
           <div className="flex items-center gap-4">
+            {role === "student" && (
+              <Link
+                href="/issues"
+                className="hidden md:inline-flex items-center justify-center rounded-md bg-green-600 px-4 py-2 text-sm font-medium text-white hover:bg-green-700 transition-colors"
+              >
+                Report Issue
+              </Link>
+            )}
+            <div className="hidden md:flex items-center px-3 py-1 rounded-full bg-zinc-100 dark:bg-zinc-800 text-xs font-medium text-zinc-600 dark:text-zinc-400 capitalize">
+              {role} View
+            </div>
             <ModeToggle />
-            <div className="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-700 dark:text-green-300 font-bold text-sm">
-              U
+            <div className="flex items-center gap-2">
+              <div className="h-8 w-8 rounded-full bg-green-100 dark:bg-green-900 flex items-center justify-center text-green-700 dark:text-green-300 font-bold text-sm uppercase">
+                {role ? role[0] : "U"}
+              </div>
+              <button
+                onClick={logout}
+                className="p-2 text-zinc-500 hover:text-red-500 transition-colors rounded-md hover:bg-red-50 dark:hover:bg-red-900/20"
+                title="Logout"
+              >
+                <LogOut className="h-4 w-4" />
+              </button>
             </div>
           </div>
         </header>

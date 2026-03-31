@@ -30,30 +30,16 @@ const wasteData = [
   { name: "E-Waste", value: 200 },
 ];
 
-import { useAuth } from "@/components/auth-provider";
-
 export default function Dashboard() {
-  const { role } = useAuth();
-
   return (
     <div className="space-y-6">
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-            {role === "admin" ? "Campus Overview" : "Your Sustainability Impact"}
-          </h2>
-          <p className="text-sm text-zinc-500 dark:text-zinc-400">
-            {role === "admin"
-              ? "Daily sustainability metrics and high-level summaries for the entire campus."
-              : "Track your personal contributions and view campus-wide goals."}
-          </p>
-        </div>
-        {role === "student" && (
-          <div className="flex items-center gap-2 bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-400 px-4 py-2 rounded-lg border border-green-200 dark:border-green-800/30 text-sm font-medium">
-            <Leaf className="h-4 w-4" />
-            Top 10% of Green Students this month!
-          </div>
-        )}
+      <div>
+        <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
+          Campus Overview
+        </h2>
+        <p className="text-sm text-zinc-500 dark:text-zinc-400">
+          Daily sustainability metrics and high-level summaries for the campus.
+        </p>
       </div>
 
       {/* Summary Cards */}

@@ -1,45 +1,46 @@
 "use client";
 
 import {
-  Line,
-  LineChart,
+  Bar,
+  BarChart,
   CartesianGrid,
   Legend,
   ResponsiveContainer,
   Tooltip,
   XAxis,
   YAxis,
-  BarChart,
-  Bar
+  PieChart,
+  Pie,
+  Cell
 } from "recharts";
-import { Car, Bike, Train, ArrowUpRight } from "lucide-react";
+import { MonitorSmartphone, BatteryCharging, ArrowUpRight, Cpu } from "lucide-react";
 
 // Mock data
-const transportModeData = [
-  { month: "Jan", "Single Occupancy": 450, Carpool: 120, Transit: 200, Bike: 50 },
-  { month: "Feb", "Single Occupancy": 430, Carpool: 140, Transit: 220, Bike: 60 },
-  { month: "Mar", "Single Occupancy": 400, Carpool: 150, Transit: 250, Bike: 90 },
-  { month: "Apr", "Single Occupancy": 380, Carpool: 160, Transit: 260, Bike: 120 },
-  { month: "May", "Single Occupancy": 350, Carpool: 180, Transit: 240, Bike: 150 },
-  { month: "Jun", "Single Occupancy": 320, Carpool: 200, Transit: 210, Bike: 180 },
+const ewasteCategories = [
+  { name: "Laptops/PCs", value: 120, color: "#3b82f6" },
+  { name: "Smartphones", value: 250, color: "#8b5cf6" },
+  { name: "Batteries", value: 400, color: "#f59e0b" },
+  { name: "Cables/Misc", value: 150, color: "#10b981" },
 ];
 
-const carbonSavings = [
-  { mode: "Carpool", kgSaved: 4500 },
-  { mode: "Public Transit", kgSaved: 8200 },
-  { mode: "Biking / Walking", kgSaved: 3100 },
-  { mode: "EV Charging", kgSaved: 1200 },
+const collectionTrends = [
+  { month: "Jan", Collected: 45, Refurbished: 20 },
+  { month: "Feb", Collected: 55, Refurbished: 25 },
+  { month: "Mar", Collected: 40, Refurbished: 15 },
+  { month: "Apr", Collected: 80, Refurbished: 45 }, // E-waste drive month
+  { month: "May", Collected: 65, Refurbished: 30 },
+  { month: "Jun", Collected: 50, Refurbished: 25 },
 ];
 
-export default function EcoTransport() {
+export default function EWasteManagement() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col gap-2">
         <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50">
-          Eco-Friendly Transportation
+          E-Waste Platform
         </h1>
         <p className="text-zinc-500 dark:text-zinc-400">
-          Track carpooling, biking, and transit usage to monitor transportation emissions reduction.
+          Track electronic waste collection, battery recycling, and device refurbishment.
         </p>
       </div>
 
@@ -47,73 +48,109 @@ export default function EcoTransport() {
         {/* Stat Cards */}
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center gap-4">
-            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-blue-100 text-blue-600 dark:bg-blue-900/30 dark:text-blue-400">
-              <Car className="h-6 w-6" />
+            <div className="flex h-12 w-12 items-center justify-center rounded-full bg-violet-100 text-violet-600 dark:bg-violet-900/30 dark:text-violet-400">
+              <MonitorSmartphone className="h-6 w-6" />
             </div>
             <div>
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Active Carpools
+                Total Devices Collected (YTD)
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                124
+                920
               </h3>
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
             <ArrowUpRight className="mr-1 h-4 w-4 text-emerald-500" />
-            <span className="font-medium text-emerald-500">+12%</span>
-            <span className="ml-2 text-zinc-500 dark:text-zinc-400">vs last month</span>
+            <span className="font-medium text-emerald-500">+15%</span>
+            <span className="ml-2 text-zinc-500 dark:text-zinc-400">vs last year</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-900/30 dark:text-emerald-400">
-              <Bike className="h-6 w-6" />
+              <Cpu className="h-6 w-6" />
             </div>
             <div>
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Bike Sharing Usage
+                Refurbished & Donated
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                850 rides
+                160
               </h3>
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="font-medium text-emerald-500">Peak hour: 8:00 AM - 10:00 AM</span>
+            <span className="font-medium text-emerald-500">17.3% Refurbishment Rate</span>
           </div>
         </div>
 
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center rounded-full bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400">
-              <Train className="h-6 w-6" />
+              <BatteryCharging className="h-6 w-6" />
             </div>
             <div>
               <p className="text-sm font-medium text-zinc-500 dark:text-zinc-400">
-                Transit Passes Sold
+                Battery Bins Fullness
               </p>
               <h3 className="text-2xl font-bold text-zinc-900 dark:text-zinc-50">
-                1,420
+                85%
               </h3>
             </div>
           </div>
           <div className="mt-4 flex items-center text-sm">
-            <span className="font-medium text-zinc-500 dark:text-zinc-400">35% of student body</span>
+            <span className="font-medium text-amber-500">Pickup scheduled for Friday</span>
           </div>
         </div>
       </div>
 
       <div className="grid gap-6 lg:grid-cols-2">
-        {/* Chart 1: Mode Shift Trends */}
+        {/* Chart 1: Categories Pie */}
         <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
           <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-            Commute Mode Trends
+            E-Waste by Category (Items)
           </h3>
           <div className="h-[300px] w-full">
             <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={transportModeData}>
+              <PieChart>
+                <Pie
+                  data={ewasteCategories}
+                  cx="50%"
+                  cy="50%"
+                  innerRadius={0}
+                  outerRadius={100}
+                  paddingAngle={2}
+                  dataKey="value"
+                >
+                  {ewasteCategories.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.color} />
+                  ))}
+                </Pie>
+                <Tooltip
+                  contentStyle={{
+                    backgroundColor: "rgba(24, 24, 27, 0.9)",
+                    border: "none",
+                    borderRadius: "8px",
+                    color: "#f4f4f5",
+                  }}
+                  itemStyle={{ color: "#f4f4f5" }}
+                />
+                <Legend />
+              </PieChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Chart 2: Collection Trends */}
+        <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
+          <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
+            Collection vs Refurbishment (Monthly)
+          </h3>
+          <div className="h-[300px] w-full">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={collectionTrends}>
                 <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.2} vertical={false} />
                 <XAxis
                   dataKey="month"
@@ -135,49 +172,11 @@ export default function EcoTransport() {
                     borderRadius: "8px",
                     color: "#f4f4f5",
                   }}
-                />
-                <Legend />
-                <Line type="monotone" dataKey="Single Occupancy" stroke="#ef4444" strokeWidth={2} activeDot={{ r: 8 }} />
-                <Line type="monotone" dataKey="Transit" stroke="#f59e0b" strokeWidth={2} />
-                <Line type="monotone" dataKey="Carpool" stroke="#3b82f6" strokeWidth={2} />
-                <Line type="monotone" dataKey="Bike" stroke="#10b981" strokeWidth={2} />
-              </LineChart>
-            </ResponsiveContainer>
-          </div>
-        </div>
-
-        {/* Chart 2: Carbon Savings */}
-        <div className="rounded-xl border border-zinc-200 bg-white p-6 shadow-sm dark:border-zinc-800 dark:bg-zinc-900">
-          <h3 className="mb-4 text-lg font-semibold text-zinc-900 dark:text-zinc-50">
-            Carbon Emissions Saved (kg CO2e) - YTD
-          </h3>
-          <div className="h-[300px] w-full">
-            <ResponsiveContainer width="100%" height="100%">
-              <BarChart data={carbonSavings}>
-                <CartesianGrid strokeDasharray="3 3" stroke="#52525b" opacity={0.2} vertical={false} />
-                <XAxis
-                  dataKey="mode"
-                  stroke="#71717a"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <YAxis
-                  stroke="#71717a"
-                  fontSize={12}
-                  tickLine={false}
-                  axisLine={false}
-                />
-                <Tooltip
-                  contentStyle={{
-                    backgroundColor: "rgba(24, 24, 27, 0.9)",
-                    border: "none",
-                    borderRadius: "8px",
-                    color: "#f4f4f5",
-                  }}
                   cursor={{fill: 'rgba(255,255,255,0.05)'}}
                 />
-                <Bar dataKey="kgSaved" fill="#10b981" radius={[4, 4, 0, 0]} />
+                <Legend />
+                <Bar dataKey="Collected" fill="#8b5cf6" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="Refurbished" fill="#10b981" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
